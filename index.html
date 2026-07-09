@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>Token Usage — acn-onboarding</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  :root {
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --series: #3987e5;
+    --series-soft: rgba(57, 135, 229, 0.22);
+    --danger: #e66767;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 48px; }
+
+  header h1 { margin: 0; font-size: 1.35rem; font-weight: 650; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 0.85rem; }
+
+  .toolbar { margin: 18px 0 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .toolbar label { color: var(--ink-2); font-size: 0.85rem; }
+  select {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .card .k { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card .v { font-size: 1.45rem; font-weight: 650; margin-top: 2px; }
+
+  .charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .panel h2 { margin: 0 0 10px; font-size: 0.85rem; font-weight: 600; color: var(--ink-2); }
+  .chart-box { position: relative; height: 260px; }
+
+  .table-wrap { overflow-x: auto; margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  td { font-size: 0.88rem; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .share-cell { min-width: 140px; }
+  .share-bar { background: var(--baseline); border-radius: 4px; height: 8px; overflow: hidden; }
+  .share-bar > div { background: var(--series); height: 100%; border-radius: 4px; }
+  .share-pct { color: var(--ink-2); font-size: 0.78rem; margin-left: 8px; font-variant-numeric: tabular-nums; }
+  .share-flex { display: flex; align-items: center; }
+  .share-flex .share-bar { flex: 1; }
+  a.logs { color: var(--series); text-decoration: none; }
+  a.logs:hover { text-decoration: underline; }
+  .dash { color: var(--baseline); }
+
+  .empty, #error {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    color: var(--ink-2);
+    margin-top: 10px;
+  }
+  #error { border-color: var(--danger); color: var(--danger); display: none; }
+
+  @media (max-width: 800px) {
+    .charts { grid-template-columns: 1fr; }
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .card .v { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Token Usage — acn-onboarding</h1>
+    <p id="subtitle">Loading…</p>
+    <p style="margin-top:2px">Usage is reported as cost ($) and traces — the analytics API does not expose raw token counts.</p>
+  </header>
+
+  <div id="error" role="alert"></div>
+
+  <div id="app" style="display:none">
+    <div class="toolbar">
+      <label for="daySelect">Day</label>
+      <select id="daySelect"></select>
+    </div>
+
+    <div class="cards">
+      <div class="card"><div class="k">Total cost</div><div class="v" id="cardCost">–</div></div>
+      <div class="card"><div class="k">Users</div><div class="v" id="cardUsers">–</div></div>
+      <div class="card"><div class="k">Traces</div><div class="v" id="cardTraces">–</div></div>
+      <div class="card"><div class="k">Avg cost / trace</div><div class="v" id="cardAvg">–</div></div>
+    </div>
+
+    <div class="charts">
+      <div class="panel">
+        <h2 id="barTitle">Cost per user</h2>
+        <div class="chart-box" id="barBox"><canvas id="barCanvas"></canvas></div>
+      </div>
+      <div class="panel">
+        <h2>Total cost per day (all history)</h2>
+        <div class="chart-box"><canvas id="lineCanvas"></canvas></div>
+      </div>
+    </div>
+
+    <div class="table-wrap panel" id="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th class="num">Cost</th>
+            <th class="num">Traces</th>
+            <th class="num">Cost/trace</th>
+            <th class="share-cell">Share</th>
+            <th>Logs</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="emptyState" style="display:none">No usage recorded for this day.</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var history = {};
+  var barChart = null;
+  var lineChart = null;
+
+  var css = getComputedStyle(document.documentElement);
+  var COLORS = {
+    series: css.getPropertyValue('--series').trim(),
+    seriesSoft: css.getPropertyValue('--series-soft').trim(),
+    grid: css.getPropertyValue('--grid').trim(),
+    muted: css.getPropertyValue('--muted').trim(),
+    ink2: css.getPropertyValue('--ink-2').trim()
+  };
+
+  function $(id) { return document.getElementById(id); }
+
+  function fmtCost(v) {
+    return '$' + v.toFixed(v < 10 ? 3 : 2);
+  }
+
+  function localPart(email) {
+    return String(email).split('@')[0];
+  }
+
+  function windowSuffix(entry) {
+    return entry.window_days > 1 ? ' (last ' + entry.window_days + ' days)' : '';
+  }
+
+  function showError(msg) {
+    var el = $('error');
+    el.textContent = msg;
+    el.style.display = 'block';
+    $('subtitle').textContent = 'Failed to load data.';
+  }
+
+  function sortedUsers(entry) {
+    return entry.users.slice().sort(function (a, b) { return b.cost - a.cost; });
+  }
+
+  function dayTotal(entry) {
+    return entry.users.reduce(function (s, u) { return s + u.cost; }, 0);
+  }
+
+  function baseScaleOpts() {
+    return {
+      grid: { color: COLORS.grid, drawTicks: false },
+      border: { color: COLORS.grid },
+      ticks: { color: COLORS.muted, font: { size: 11 } }
+    };
+  }
+
+  function renderBarChart(users) {
+    if (barChart) { barChart.destroy(); barChart = null; }
+    $('barBox').style.height = Math.max(220, 40 * users.length + 60) + 'px';
+    barChart = new Chart($('barCanvas'), {
+      type: 'bar',
+      data: {
+        labels: users.map(function (u) { return localPart(u.email); }),
+        datasets: [{
+          data: users.map(function (u) { return u.cost; }),
+          backgroundColor: COLORS.series,
+          borderRadius: 4,
+          barThickness: 18
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) {
+                var u = users[ctx.dataIndex];
+                return fmtCost(u.cost) + ' · ' + u.traces + ' traces';
+              }
+            }
+          }
+        },
+        scales: {
+          x: Object.assign(baseScaleOpts(), {
+            ticks: {
+              color: COLORS.muted, font: { size: 11 },
+              callback: function (v) { return '$' + Number(v).toFixed(2); }
+            }
+          }),
+          y: Object.assign(baseScaleOpts(), { grid: { display: false }, border: { color: COLORS.grid } })
+        }
+      }
+    });
+  }
+
+  function renderLineChart() {
+    if (lineChart) { lineChart.destroy(); lineChart = null; }
+    var dates = Object.keys(history).sort();
+    lineChart = new Chart($('lineCanvas'), {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          data: dates.map(function (d) { return dayTotal(history[d]); }),
+          borderColor: COLORS.series,
+          backgroundColor: COLORS.seriesSoft,
+          fill: true,
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: COLORS.series,
+          tension: 0.25
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) {
+                var entry = history[dates[ctx.dataIndex]];
+                return fmtCost(ctx.parsed.y) + windowSuffix(entry);
+              }
+            }
+          }
+        },
+        scales: {
+          x: baseScaleOpts(),
+          y: Object.assign(baseScaleOpts(), {
+            beginAtZero: true,
+            ticks: {
+              color: COLORS.muted, font: { size: 11 },
+              callback: function (v) { return '$' + Number(v).toFixed(2); }
+            }
+          })
+        }
+      }
+    });
+  }
+
+  function renderTable(users, total) {
+    var body = $('tableBody');
+    body.textContent = '';
+    users.forEach(function (u) {
+      var tr = document.createElement('tr');
+
+      var tdUser = document.createElement('td');
+      tdUser.textContent = u.email;
+      tr.appendChild(tdUser);
+
+      var tdCost = document.createElement('td');
+      tdCost.className = 'num';
+      tdCost.textContent = fmtCost(u.cost);
+      tr.appendChild(tdCost);
+
+      var tdTraces = document.createElement('td');
+      tdTraces.className = 'num';
+      tdTraces.textContent = u.traces;
+      tr.appendChild(tdTraces);
+
+      var tdAvg = document.createElement('td');
+      tdAvg.className = 'num';
+      tdAvg.textContent = u.traces > 0 ? fmtCost(u.cost / u.traces) : '—';
+      tr.appendChild(tdAvg);
+
+      var tdShare = document.createElement('td');
+      tdShare.className = 'share-cell';
+      var pct = total > 0 ? (u.cost / total) * 100 : 0;
+      var flex = document.createElement('div');
+      flex.className = 'share-flex';
+      var bar = document.createElement('div');
+      bar.className = 'share-bar';
+      var fill = document.createElement('div');
+      fill.style.width = pct.toFixed(1) + '%';
+      bar.appendChild(fill);
+      var pctLabel = document.createElement('span');
+      pctLabel.className = 'share-pct';
+      pctLabel.textContent = pct.toFixed(1) + '%';
+      flex.appendChild(bar);
+      flex.appendChild(pctLabel);
+      tdShare.appendChild(flex);
+      tr.appendChild(tdShare);
+
+      var tdLogs = document.createElement('td');
+      if (u.url) {
+        var a = document.createElement('a');
+        a.className = 'logs';
+        a.href = u.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = 'logs ↗';
+        tdLogs.appendChild(a);
+      } else {
+        tdLogs.innerHTML = '<span class="dash">—</span>';
+      }
+      tr.appendChild(tdLogs);
+
+      body.appendChild(tr);
+    });
+  }
+
+  function renderDay(date) {
+    var entry = history[date];
+    var users = sortedUsers(entry);
+    var total = dayTotal(entry);
+    var traces = entry.users.reduce(function (s, u) { return s + u.traces; }, 0);
+
+    $('cardCost').textContent = fmtCost(total);
+    $('cardUsers').textContent = String(users.length);
+    $('cardTraces').textContent = String(traces);
+    $('cardAvg').textContent = traces > 0 ? fmtCost(total / traces) : '—';
+    $('barTitle').textContent = 'Cost per user — ' + date + windowSuffix(entry);
+
+    var hasUsers = users.length > 0;
+    $('tableWrap').style.display = hasUsers ? '' : 'none';
+    $('emptyState').style.display = hasUsers ? 'none' : '';
+
+    renderBarChart(users);
+    renderLineChart();
+    if (hasUsers) renderTable(users, total);
+  }
+
+  function init(data) {
+    history = data;
+    var dates = Object.keys(history).sort().reverse();
+    if (dates.length === 0) {
+      showError('history.json contains no snapshots yet. Run update.py to record one.');
+      return;
+    }
+
+    $('subtitle').textContent = 'Last updated ' + dates[0] + ' · ' + dates.length +
+      (dates.length === 1 ? ' day' : ' days') + ' of history';
+
+    var select = $('daySelect');
+    dates.forEach(function (d) {
+      var opt = document.createElement('option');
+      opt.value = d;
+      opt.textContent = d + windowSuffix(history[d]);
+      select.appendChild(opt);
+    });
+    select.value = dates[0];
+    select.addEventListener('change', function () { renderDay(select.value); });
+
+    $('app').style.display = '';
+    renderDay(dates[0]);
+  }
+
+  fetch('data/history.json?t=' + Date.now())
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(init)
+    .catch(function (err) {
+      showError('Could not load data/history.json (' + err.message + '). ' +
+        'If you opened this file directly (file://), serve it instead: python3 -m http.server');
+    });
+})();
+</script>
+</body>
+</html>

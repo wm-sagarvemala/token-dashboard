@@ -1,0 +1,56 @@
+name: Snapshot reminder
+
+# Opens/updates an issue when yesterday has no snapshot in data/history.json.
+# It cannot fetch the analytics API itself (no shareable credential) — it only nags.
+
+on:
+  schedule:
+    - cron: "30 6 * * *" # 06:30 UTC daily (12:00 IST)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const history = JSON.parse(fs.readFileSync('data/history.json', 'utf8'));
+            const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000)
+              .toISOString().slice(0, 10);
+            if (history[yesterday]) {
+              core.info(`Snapshot for ${yesterday} exists — nothing to do.`);
+              return;
+            }
+            const title = `Token snapshot missing for ${yesterday}`;
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'snapshot-reminder',
+            });
+            if (open.some(i => i.title === title)) {
+              core.info('Reminder issue already open.');
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              labels: ['snapshot-reminder'],
+              body: [
+                `\`data/history.json\` has no entry for **${yesterday}**.`,
+                '',
+                'Backfill it:',
+                '```sh',
+                `export ANALYTICS_COOKIE='<cookie from devtools>'`,
+                `python3 update.py --date ${yesterday} --push`,
+                '```',
+              ].join('\n'),
+            });

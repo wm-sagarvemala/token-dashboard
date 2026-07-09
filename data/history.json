@@ -1,0 +1,43 @@
+{
+ "2026-07-09": {
+  "users": [
+   {
+    "cost": 11.011990699948,
+    "email": "sameer.a.b.kulkarni@accenture.com",
+    "traces": 13,
+    "url": null
+   },
+   {
+    "cost": 7.159660949962,
+    "email": "geethu.gs@accenture.com",
+    "traces": 26,
+    "url": null
+   },
+   {
+    "cost": 4.790697499989,
+    "email": "prince.t.jacob@accenture.com",
+    "traces": 6,
+    "url": null
+   },
+   {
+    "cost": 3.70360394998,
+    "email": "priyanka.bhadri@wavemaker.com",
+    "traces": 10,
+    "url": null
+   },
+   {
+    "cost": 1.212297299995,
+    "email": "dhanya.b.rao@accenture.com",
+    "traces": 6,
+    "url": null
+   },
+   {
+    "cost": 0.513041099995,
+    "email": "kaustab.das@accenture.com",
+    "traces": 2,
+    "url": null
+   }
+  ],
+  "window_days": 30
+ }
+}
