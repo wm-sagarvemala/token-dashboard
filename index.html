@@ -14,6 +14,7 @@
   :root {
     --page: #0d1930;
     --surface: #12223f;
+    --surface-2: #16294d;
     --ink: #ffffff;
     --ink-2: #c6d3e8;
     --muted: #8296b8;
@@ -28,126 +29,142 @@
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    background: var(--page);
+    background:
+      radial-gradient(900px 320px at 85% -80px, rgba(23, 148, 239, 0.14), transparent 70%),
+      var(--page);
     color: var(--ink);
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: 15px;
     line-height: 1.45;
   }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 48px; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 28px 20px 56px; }
 
-  header { display: flex; align-items: flex-start; gap: 12px; }
-  header .logo { width: 40px; height: 41px; flex: none; margin-top: 2px; }
-  header h1 { margin: 0; font-size: 1.35rem; font-weight: 700; }
-  header .sub { margin: 4px 0 0; color: var(--ink-2); font-size: 0.9rem; }
-  header .sub3 { margin: 2px 0 0; color: var(--muted); font-size: 0.82rem; }
+  /* ---- header ---- */
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .brand .logo { width: 42px; height: 43px; flex: none; }
+  .brand h1 { margin: 0; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; }
+  .brand .sub { margin: 3px 0 0; color: var(--ink-2); font-size: 0.88rem; }
+  .brand .sub strong { color: var(--ink); font-weight: 600; }
+  .brand .sub3 { margin: 1px 0 0; color: var(--muted); font-size: 0.8rem; }
 
-  .toolbar { margin: 18px 0 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .segmented { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
+  .segmented { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px; flex: none; }
   .segmented button {
     appearance: none;
     background: transparent;
     color: var(--ink-2);
     border: 0;
-    border-radius: 8px;
-    padding: 9px 18px;
-    font-size: 0.9rem;
+    border-radius: 999px;
+    padding: 9px 20px;
+    font-size: 0.88rem;
     font-family: inherit;
+    font-weight: 500;
     cursor: pointer;
     min-height: 38px;
+    transition: background 0.15s, color 0.15s;
   }
   .segmented button.active { background: var(--series); color: #fff; font-weight: 600; }
+  .segmented button:not(.active):hover { color: var(--ink); }
   .segmented button:disabled { color: var(--baseline); cursor: not-allowed; }
 
+  /* ---- stat cards ---- */
   .cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 12px;
+    margin-top: 24px;
   }
   .card {
-    background: var(--surface);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
+    border-radius: 14px;
+    padding: 16px 18px;
   }
-  .card .k { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  .card .v { font-size: 1.45rem; font-weight: 650; margin-top: 2px; }
-  .card .s { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
+  .card .k { color: var(--muted); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; }
+  .card .v { font-size: 1.7rem; font-weight: 700; margin-top: 4px; letter-spacing: -0.02em; }
+  .card .s { color: var(--link); font-size: 0.8rem; margin-top: 2px; font-weight: 500; }
 
-  .charts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 10px;
-  }
+  /* ---- panels ---- */
   .panel {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 14px;
   }
-  .panel h2 { margin: 0 0 10px; font-size: 0.85rem; font-weight: 600; color: var(--ink-2); }
-  .chart-box { position: relative; height: 260px; }
+  .panel h2 { margin: 0 0 4px; font-size: 0.95rem; font-weight: 600; }
+  .panel .hint { margin: 0 0 12px; color: var(--muted); font-size: 0.8rem; }
+  .chart-box { position: relative; height: 280px; }
 
-  .table-wrap { overflow-x: auto; margin-top: 10px; }
-  table { width: 100%; border-collapse: collapse; min-width: 700px; }
-  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
-  th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  /* ---- table ---- */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover td { background: rgba(23, 148, 239, 0.06); }
+  th { color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
   td { font-size: 0.88rem; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-  .share-cell { min-width: 140px; }
+  .user-cell { display: flex; align-items: center; gap: 10px; }
+  .avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--series-soft);
+    color: var(--link);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em;
+    display: flex; align-items: center; justify-content: center;
+    flex: none;
+  }
+  .share-cell { min-width: 160px; }
   .share-bar { background: var(--baseline); border-radius: 4px; height: 8px; overflow: hidden; }
   .share-bar > div { background: var(--series); height: 100%; border-radius: 4px; }
-  .share-pct { color: var(--ink-2); font-size: 0.78rem; margin-left: 8px; font-variant-numeric: tabular-nums; }
+  .share-pct { color: var(--ink-2); font-size: 0.78rem; margin-left: 10px; font-variant-numeric: tabular-nums; }
   .share-flex { display: flex; align-items: center; }
   .share-flex .share-bar { flex: 1; }
-  a.logs { color: var(--link); text-decoration: none; }
-  a.logs:hover { text-decoration: underline; }
-  .dash { color: var(--baseline); }
 
   .empty, #error {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px;
+    border-radius: 14px;
+    padding: 28px;
     text-align: center;
     color: var(--ink-2);
-    margin-top: 10px;
+    margin-top: 14px;
   }
   #error { border-color: var(--danger); color: var(--danger); display: none; }
 
+  footer { margin-top: 20px; color: var(--muted); font-size: 0.78rem; text-align: center; }
+
   @media (max-width: 800px) {
-    .charts { grid-template-columns: 1fr; }
     .cards { grid-template-columns: repeat(2, 1fr); }
-    .card .v { font-size: 1.2rem; }
+    .card .v { font-size: 1.3rem; }
+    .wrap { padding-top: 20px; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <svg class="logo" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WaveMaker">
-      <path d="M24.9684 10.9501L25.0061 10.9876C25.0944 11.082 25.2178 11.1364 25.3475 11.1383C26.0709 11.1545 26.7903 11.2494 27.4928 11.4212C28.4777 11.6346 29.4335 11.9634 30.3401 12.4008C30.748 12.6346 31.2611 12.5815 31.6116 12.2692C31.9745 11.9977 32.1005 11.5134 31.9152 11.1015C30.096 5.65376 25.5 1.57342 19.8425 0.383311C15.8397 -0.507205 11.645 0.16737 8.13039 2.26681C2.79606 5.35268 -0.336234 11.1533 0.0287554 17.27C0.393744 23.3867 4.19399 28.78 9.85802 31.2195C9.61142 31.0689 9.3078 30.8616 8.92792 30.5787C3.38194 26.3387 2.33776 18.4453 6.59306 12.9284C7.28875 12.0308 8.099 11.2268 9.00347 10.5364C10.1 9.70648 11.3243 9.05758 12.6291 8.61469C13.9459 8.18074 15.3226 7.95193 16.7101 7.9364C17.5965 7.94241 18.48 8.03719 19.3472 8.21932C21.4268 8.63341 23.3632 9.57414 24.9684 10.9501Z" fill="#45AAF4"/>
-      <path d="M10.214 28.4659C11.1091 30.3346 12.7386 31.7494 14.7151 32.374C15.7149 32.71 16.7726 32.8398 17.824 32.7555C15.6367 31.085 14.9557 28.0913 16.2054 25.64C17.4552 23.1886 20.2788 21.9796 22.9166 22.7664C23.3036 22.9096 23.7383 22.7675 23.9658 22.4235C24.232 22.1136 24.2703 21.6685 24.0611 21.3177C22.951 19.2115 20.9312 17.7345 18.5867 17.3145C16.7352 16.9454 14.8126 17.2928 13.2076 18.2865C9.66098 20.3449 8.34585 24.8169 10.214 28.4659Z" fill="#097FD5"/>
-      <path d="M20.7766 17.2059C22.143 16.8049 23.5883 16.7527 24.9801 17.0541C25.5461 17.1833 26.0997 17.3613 26.6348 17.586C27.0151 17.7862 27.4825 17.7087 27.7775 17.3963C28.0949 17.0914 28.1863 16.6203 28.006 16.2191C27.2762 14.3779 26.0998 12.7466 24.5823 11.4717C23.0657 10.1874 21.2568 9.294 19.314 8.8698C16.2722 8.18892 13.084 8.74215 10.4507 10.4078C6.50211 12.8213 4.28431 17.2773 4.74225 21.8771C5.20018 26.477 8.25313 30.4099 12.6003 32.0001C12.3889 31.8599 12.1858 31.7078 11.9918 31.5445C10.2435 30.1679 9.11459 28.1542 8.85367 25.9464C8.59276 23.7387 9.22119 21.5179 10.6006 19.7729C11.0857 19.1502 11.6638 18.6058 12.3146 18.1586C13.7383 17.1206 15.4588 16.5678 17.2216 16.582C17.7321 16.573 18.2422 16.6175 18.7434 16.7147C19.3189 16.8298 19.8847 16.9885 20.436 17.1895C20.5424 17.2418 20.6657 17.2478 20.7766 17.2059Z" fill="#1794EF"/>
-    </svg>
-    <div>
-      <h1>Token Usage (ACN OnBoarding team)</h1>
-      <p class="sub" id="subtitle">Loading…</p>
-      <p class="sub3">1 USD = 20 Credits in Platform · usage is reported as cost ($).</p>
+  <div class="topbar">
+    <header class="brand">
+      <svg class="logo" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WaveMaker">
+        <path d="M24.9684 10.9501L25.0061 10.9876C25.0944 11.082 25.2178 11.1364 25.3475 11.1383C26.0709 11.1545 26.7903 11.2494 27.4928 11.4212C28.4777 11.6346 29.4335 11.9634 30.3401 12.4008C30.748 12.6346 31.2611 12.5815 31.6116 12.2692C31.9745 11.9977 32.1005 11.5134 31.9152 11.1015C30.096 5.65376 25.5 1.57342 19.8425 0.383311C15.8397 -0.507205 11.645 0.16737 8.13039 2.26681C2.79606 5.35268 -0.336234 11.1533 0.0287554 17.27C0.393744 23.3867 4.19399 28.78 9.85802 31.2195C9.61142 31.0689 9.3078 30.8616 8.92792 30.5787C3.38194 26.3387 2.33776 18.4453 6.59306 12.9284C7.28875 12.0308 8.099 11.2268 9.00347 10.5364C10.1 9.70648 11.3243 9.05758 12.6291 8.61469C13.9459 8.18074 15.3226 7.95193 16.7101 7.9364C17.5965 7.94241 18.48 8.03719 19.3472 8.21932C21.4268 8.63341 23.3632 9.57414 24.9684 10.9501Z" fill="#45AAF4"/>
+        <path d="M10.214 28.4659C11.1091 30.3346 12.7386 31.7494 14.7151 32.374C15.7149 32.71 16.7726 32.8398 17.824 32.7555C15.6367 31.085 14.9557 28.0913 16.2054 25.64C17.4552 23.1886 20.2788 21.9796 22.9166 22.7664C23.3036 22.9096 23.7383 22.7675 23.9658 22.4235C24.232 22.1136 24.2703 21.6685 24.0611 21.3177C22.951 19.2115 20.9312 17.7345 18.5867 17.3145C16.7352 16.9454 14.8126 17.2928 13.2076 18.2865C9.66098 20.3449 8.34585 24.8169 10.214 28.4659Z" fill="#097FD5"/>
+        <path d="M20.7766 17.2059C22.143 16.8049 23.5883 16.7527 24.9801 17.0541C25.5461 17.1833 26.0997 17.3613 26.6348 17.586C27.0151 17.7862 27.4825 17.7087 27.7775 17.3963C28.0949 17.0914 28.1863 16.6203 28.006 16.2191C27.2762 14.3779 26.0998 12.7466 24.5823 11.4717C23.0657 10.1874 21.2568 9.294 19.314 8.8698C16.2722 8.18892 13.084 8.74215 10.4507 10.4078C6.50211 12.8213 4.28431 17.2773 4.74225 21.8771C5.20018 26.477 8.25313 30.4099 12.6003 32.0001C12.3889 31.8599 12.1858 31.7078 11.9918 31.5445C10.2435 30.1679 9.11459 28.1542 8.85367 25.9464C8.59276 23.7387 9.22119 21.5179 10.6006 19.7729C11.0857 19.1502 11.6638 18.6058 12.3146 18.1586C13.7383 17.1206 15.4588 16.5678 17.2216 16.582C17.7321 16.573 18.2422 16.6175 18.7434 16.7147C19.3189 16.8298 19.8847 16.9885 20.436 17.1895C20.5424 17.2418 20.6657 17.2478 20.7766 17.2059Z" fill="#1794EF"/>
+      </svg>
+      <div>
+        <h1>Token Usage (ACN OnBoarding team)</h1>
+        <p class="sub" id="subtitle">Loading…</p>
+        <p class="sub3">1 USD = 20 Credits in Platform · usage is reported as cost ($).</p>
+      </div>
+    </header>
+    <div class="segmented" role="tablist" aria-label="Usage window" id="segmented" style="display:none">
+      <button type="button" data-view="last30days" role="tab">Last 30 days</button>
+      <button type="button" data-view="last24hours" role="tab">Last 24 hours</button>
     </div>
-  </header>
+  </div>
 
   <div id="error" role="alert"></div>
 
   <div id="app" style="display:none">
-    <div class="toolbar">
-      <div class="segmented" role="tablist" aria-label="Usage window">
-        <button type="button" data-view="last30days" role="tab">Last 30 days</button>
-        <button type="button" data-view="last24hours" role="tab">Last 24 hours</button>
-      </div>
-    </div>
-
     <div class="cards">
       <div class="card">
         <div class="k">Total cost</div>
@@ -159,18 +176,13 @@
       <div class="card"><div class="k">Avg cost / trace</div><div class="v" id="cardAvg">–</div></div>
     </div>
 
-    <div class="charts">
-      <div class="panel">
-        <h2 id="barTitle">Cost per user</h2>
-        <div class="chart-box" id="barBox"><canvas id="barCanvas"></canvas></div>
-      </div>
-      <div class="panel">
-        <h2>Total cost per day (trend)</h2>
-        <div class="chart-box"><canvas id="lineCanvas"></canvas></div>
-      </div>
+    <div class="panel">
+      <h2 id="barTitle">Cost per user</h2>
+      <p class="hint" id="barHint"></p>
+      <div class="chart-box" id="barBox"><canvas id="barCanvas"></canvas></div>
     </div>
 
-    <div class="table-wrap panel" id="tableWrap">
+    <div class="panel table-wrap" id="tableWrap">
       <table>
         <thead>
           <tr>
@@ -180,13 +192,14 @@
             <th class="num">Traces</th>
             <th class="num">Cost/trace</th>
             <th class="share-cell">Share</th>
-            <th>Logs</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
       </table>
     </div>
     <div class="empty" id="emptyState" style="display:none">No usage recorded for this window.</div>
+
+    <footer>Interim dashboard · updated daily from WaveMaker AI analytics</footer>
   </div>
 </div>
 
@@ -195,20 +208,15 @@
   'use strict';
 
   var CREDITS_PER_USD = 20;
-  var VIEWS = [
-    { key: 'last30days', label: 'Last 30 days' },
-    { key: 'last24hours', label: 'Last 24 hours' }
-  ];
+  var DEFAULT_VIEW = 'last30days';
+  var LABELS = { last30days: 'Last 30 days', last24hours: 'Last 24 hours' };
 
-  var data = { snapshots: {}, daily: {} };
-  var currentView = null;
+  var data = { snapshots: {} };
   var barChart = null;
-  var lineChart = null;
 
   var css = getComputedStyle(document.documentElement);
   var COLORS = {
     series: css.getPropertyValue('--series').trim(),
-    seriesSoft: css.getPropertyValue('--series-soft').trim(),
     grid: css.getPropertyValue('--grid').trim(),
     muted: css.getPropertyValue('--muted').trim()
   };
@@ -221,7 +229,7 @@
 
   function fmtCredits(usd) {
     var c = usd * CREDITS_PER_USD;
-    return (c % 1 === 0 ? c.toFixed(0) : c.toFixed(1)) + ' credits';
+    return (c % 1 === 0 ? c.toFixed(0) : c.toFixed(1));
   }
 
   function fmtDateTime(iso) {
@@ -237,11 +245,11 @@
     return String(email).split('@')[0];
   }
 
-  function viewLabel(key) {
-    for (var i = 0; i < VIEWS.length; i++) {
-      if (VIEWS[i].key === key) return VIEWS[i].label;
-    }
-    return key;
+  function initials(email) {
+    var parts = localPart(email).split(/[._-]+/).filter(Boolean);
+    var a = (parts[0] || '?').charAt(0);
+    var b = parts.length > 1 ? parts[parts.length - 1].charAt(0) : (parts[0] || '').charAt(1) || '';
+    return (a + b).toUpperCase();
   }
 
   function showError(msg) {
@@ -251,17 +259,9 @@
     $('subtitle').textContent = 'Failed to load data.';
   }
 
-  function baseScaleOpts() {
-    return {
-      grid: { color: COLORS.grid, drawTicks: false },
-      border: { color: COLORS.grid },
-      ticks: { color: COLORS.muted, font: { size: 11 } }
-    };
-  }
-
   function renderBarChart(users) {
     if (barChart) { barChart.destroy(); barChart = null; }
-    $('barBox').style.height = Math.max(220, 40 * users.length + 60) + 'px';
+    $('barBox').style.height = Math.max(200, 46 * users.length + 50) + 'px';
     barChart = new Chart($('barCanvas'), {
       type: 'bar',
       data: {
@@ -270,7 +270,7 @@
           data: users.map(function (u) { return u.cost; }),
           backgroundColor: COLORS.series,
           borderRadius: 4,
-          barThickness: 18
+          barThickness: 20
         }]
       },
       options: {
@@ -283,70 +283,28 @@
             callbacks: {
               label: function (ctx) {
                 var u = users[ctx.dataIndex];
-                return fmtCost(u.cost) + ' · ' + fmtCredits(u.cost) + ' · ' + u.traces + ' traces';
+                return fmtCost(u.cost) + ' · ' + fmtCredits(u.cost) + ' credits · ' + u.traces + ' traces';
               }
             }
           }
         },
         scales: {
           // no fixed min/max anywhere — axes re-fit whatever data is loaded
-          x: Object.assign(baseScaleOpts(), {
+          x: {
             beginAtZero: true,
             grace: '5%',
+            grid: { color: COLORS.grid, drawTicks: false },
+            border: { color: COLORS.grid },
             ticks: {
-              color: COLORS.muted, font: { size: 11 },
+              color: COLORS.muted, font: { size: 11, family: 'Inter' },
               callback: function (v) { return '$' + Number(v).toFixed(2); }
             }
-          }),
-          y: Object.assign(baseScaleOpts(), { grid: { display: false } })
-        }
-      }
-    });
-  }
-
-  function renderLineChart() {
-    if (lineChart) { lineChart.destroy(); lineChart = null; }
-    var dates = Object.keys(data.daily).sort();
-    lineChart = new Chart($('lineCanvas'), {
-      type: 'line',
-      data: {
-        labels: dates,
-        datasets: [{
-          data: dates.map(function (d) { return data.daily[d].cost; }),
-          borderColor: COLORS.series,
-          backgroundColor: COLORS.seriesSoft,
-          fill: true,
-          borderWidth: 2,
-          pointRadius: 4,
-          pointBackgroundColor: COLORS.series,
-          tension: 0.25
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: function (ctx) {
-                var day = data.daily[dates[ctx.dataIndex]];
-                return fmtCost(ctx.parsed.y) + ' · ' + day.traces + ' traces · ' + day.users + ' users';
-              }
-            }
+          },
+          y: {
+            grid: { display: false },
+            border: { color: COLORS.grid },
+            ticks: { color: COLORS.muted, font: { size: 12, family: 'Inter' } }
           }
-        },
-        scales: {
-          x: baseScaleOpts(),
-          y: Object.assign(baseScaleOpts(), {
-            beginAtZero: true,
-            grace: '5%',
-            ticks: {
-              color: COLORS.muted, font: { size: 11 },
-              callback: function (v) { return '$' + Number(v).toFixed(2); }
-            }
-          })
         }
       }
     });
@@ -359,7 +317,16 @@
       var tr = document.createElement('tr');
 
       var tdUser = document.createElement('td');
-      tdUser.textContent = u.email;
+      var cell = document.createElement('div');
+      cell.className = 'user-cell';
+      var av = document.createElement('span');
+      av.className = 'avatar';
+      av.textContent = initials(u.email);
+      cell.appendChild(av);
+      var name = document.createElement('span');
+      name.textContent = u.email;
+      cell.appendChild(name);
+      tdUser.appendChild(cell);
       tr.appendChild(tdUser);
 
       var tdCost = document.createElement('td');
@@ -369,7 +336,7 @@
 
       var tdCredits = document.createElement('td');
       tdCredits.className = 'num';
-      tdCredits.textContent = fmtCredits(u.cost).replace(' credits', '');
+      tdCredits.textContent = fmtCredits(u.cost);
       tr.appendChild(tdCredits);
 
       var tdTraces = document.createElement('td');
@@ -400,72 +367,58 @@
       tdShare.appendChild(flex);
       tr.appendChild(tdShare);
 
-      var tdLogs = document.createElement('td');
-      if (u.url) {
-        var a = document.createElement('a');
-        a.className = 'logs';
-        a.href = u.url;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.textContent = 'logs ↗';
-        tdLogs.appendChild(a);
-      } else {
-        var dash = document.createElement('span');
-        dash.className = 'dash';
-        dash.textContent = '—';
-        tdLogs.appendChild(dash);
-      }
-      tr.appendChild(tdLogs);
-
       body.appendChild(tr);
     });
   }
 
   function renderView(key) {
-    currentView = key;
     var snap = data.snapshots[key];
 
-    var buttons = document.querySelectorAll('.segmented button');
-    buttons.forEach(function (b) {
-      b.classList.toggle('active', b.getAttribute('data-view') === key);
-      b.setAttribute('aria-selected', b.getAttribute('data-view') === key ? 'true' : 'false');
+    document.querySelectorAll('.segmented button').forEach(function (b) {
+      var active = b.getAttribute('data-view') === key;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', active ? 'true' : 'false');
     });
 
-    $('subtitle').textContent = 'Last updated: ' + fmtDateTime(snap.updated_at) +
-      ' (' + viewLabel(key) + ')';
+    $('subtitle').innerHTML = '';
+    var subText = document.createElement('span');
+    subText.textContent = 'Last updated: ';
+    var strong = document.createElement('strong');
+    strong.textContent = fmtDateTime(snap.updated_at);
+    $('subtitle').appendChild(subText);
+    $('subtitle').appendChild(strong);
 
     var users = snap.users.slice().sort(function (a, b) { return b.cost - a.cost; });
     var total = users.reduce(function (s, u) { return s + u.cost; }, 0);
     var traces = users.reduce(function (s, u) { return s + u.traces; }, 0);
 
     $('cardCost').textContent = fmtCost(total);
-    $('cardCredits').textContent = '≈ ' + fmtCredits(total);
+    $('cardCredits').textContent = '≈ ' + fmtCredits(total) + ' credits';
     $('cardUsers').textContent = String(users.length);
     $('cardTraces').textContent = String(traces);
     $('cardAvg').textContent = traces > 0 ? fmtCost(total / traces) : '—';
-    $('barTitle').textContent = 'Cost per user — ' + viewLabel(key);
+    $('barTitle').textContent = 'Cost per user — ' + LABELS[key];
+    $('barHint').textContent = 'Sorted by cost, ' + LABELS[key].toLowerCase() +
+      ' · as of ' + fmtDateTime(snap.updated_at);
 
     var hasUsers = users.length > 0;
     $('tableWrap').style.display = hasUsers ? '' : 'none';
     $('emptyState').style.display = hasUsers ? 'none' : '';
 
     renderBarChart(users);
-    renderLineChart();
     if (hasUsers) renderTable(users, total);
   }
 
   function init(loaded) {
     data.snapshots = loaded.snapshots || {};
-    data.daily = loaded.daily || {};
 
-    var available = VIEWS.filter(function (v) { return data.snapshots[v.key]; });
-    if (available.length === 0) {
+    var keys = Object.keys(LABELS).filter(function (k) { return data.snapshots[k]; });
+    if (keys.length === 0) {
       showError('history.json contains no snapshots yet. Run update.py to record one.');
       return;
     }
 
-    var buttons = document.querySelectorAll('.segmented button');
-    buttons.forEach(function (b) {
+    document.querySelectorAll('.segmented button').forEach(function (b) {
       var key = b.getAttribute('data-view');
       if (!data.snapshots[key]) {
         b.disabled = true;
@@ -475,13 +428,9 @@
       b.addEventListener('click', function () { renderView(key); });
     });
 
-    // default to the most recently updated snapshot; ties prefer the daily view
-    var initial = available.slice().sort(function (a, b) {
-      var cmp = String(data.snapshots[b.key].updated_at).localeCompare(String(data.snapshots[a.key].updated_at));
-      if (cmp !== 0) return cmp;
-      return (a.key === 'last24hours' ? -1 : 1);
-    })[0].key;
+    var initial = data.snapshots[DEFAULT_VIEW] ? DEFAULT_VIEW : keys[0];
 
+    $('segmented').style.display = '';
     $('app').style.display = '';
     renderView(initial);
   }
