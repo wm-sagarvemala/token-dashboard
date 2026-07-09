@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark">
-<title>Token Usage — acn-onboarding</title>
+<title>Token Usage (ACN OnBoarding team)</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
   :root {
@@ -32,19 +32,25 @@
   .wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 48px; }
 
   header h1 { margin: 0; font-size: 1.35rem; font-weight: 650; }
-  header p { margin: 4px 0 0; color: var(--muted); font-size: 0.85rem; }
+  header .sub { margin: 4px 0 0; color: var(--ink-2); font-size: 0.9rem; }
+  header .sub3 { margin: 2px 0 0; color: var(--muted); font-size: 0.82rem; }
 
   .toolbar { margin: 18px 0 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .toolbar label { color: var(--ink-2); font-size: 0.85rem; }
-  select {
-    background: var(--surface);
-    color: var(--ink);
-    border: 1px solid var(--border);
+  .segmented { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
+  .segmented button {
+    appearance: none;
+    background: transparent;
+    color: var(--ink-2);
+    border: 0;
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 9px 18px;
     font-size: 0.9rem;
-    min-height: 40px;
+    font-family: inherit;
+    cursor: pointer;
+    min-height: 38px;
   }
+  .segmented button.active { background: var(--series); color: #fff; font-weight: 600; }
+  .segmented button:disabled { color: var(--baseline); cursor: not-allowed; }
 
   .cards {
     display: grid;
@@ -59,6 +65,7 @@
   }
   .card .k { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
   .card .v { font-size: 1.45rem; font-weight: 650; margin-top: 2px; }
+  .card .s { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
 
   .charts {
     display: grid;
@@ -76,7 +83,7 @@
   .chart-box { position: relative; height: 260px; }
 
   .table-wrap { overflow-x: auto; margin-top: 10px; }
-  table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  table { width: 100%; border-collapse: collapse; min-width: 700px; }
   th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
   th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
   td { font-size: 0.88rem; }
@@ -112,21 +119,27 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>Token Usage — acn-onboarding</h1>
-    <p id="subtitle">Loading…</p>
-    <p style="margin-top:2px">Usage is reported as cost ($) and traces — the analytics API does not expose raw token counts.</p>
+    <h1>Token Usage (ACN OnBoarding team)</h1>
+    <p class="sub" id="subtitle">Loading…</p>
+    <p class="sub3">1 USD = 20 Credits in Platform · usage is reported as cost ($) and traces — the analytics API does not expose raw token counts.</p>
   </header>
 
   <div id="error" role="alert"></div>
 
   <div id="app" style="display:none">
     <div class="toolbar">
-      <label for="daySelect">Day</label>
-      <select id="daySelect"></select>
+      <div class="segmented" role="tablist" aria-label="Usage window">
+        <button type="button" data-view="last30days" role="tab">Last 30 days</button>
+        <button type="button" data-view="last24hours" role="tab">Last 24 hours</button>
+      </div>
     </div>
 
     <div class="cards">
-      <div class="card"><div class="k">Total cost</div><div class="v" id="cardCost">–</div></div>
+      <div class="card">
+        <div class="k">Total cost</div>
+        <div class="v" id="cardCost">–</div>
+        <div class="s" id="cardCredits"></div>
+      </div>
       <div class="card"><div class="k">Users</div><div class="v" id="cardUsers">–</div></div>
       <div class="card"><div class="k">Traces</div><div class="v" id="cardTraces">–</div></div>
       <div class="card"><div class="k">Avg cost / trace</div><div class="v" id="cardAvg">–</div></div>
@@ -138,7 +151,7 @@
         <div class="chart-box" id="barBox"><canvas id="barCanvas"></canvas></div>
       </div>
       <div class="panel">
-        <h2>Total cost per day (all history)</h2>
+        <h2>Total cost per day (trend)</h2>
         <div class="chart-box"><canvas id="lineCanvas"></canvas></div>
       </div>
     </div>
@@ -149,6 +162,7 @@
           <tr>
             <th>User</th>
             <th class="num">Cost</th>
+            <th class="num">Credits</th>
             <th class="num">Traces</th>
             <th class="num">Cost/trace</th>
             <th class="share-cell">Share</th>
@@ -158,7 +172,7 @@
         <tbody id="tableBody"></tbody>
       </table>
     </div>
-    <div class="empty" id="emptyState" style="display:none">No usage recorded for this day.</div>
+    <div class="empty" id="emptyState" style="display:none">No usage recorded for this window.</div>
   </div>
 </div>
 
@@ -166,7 +180,14 @@
 (function () {
   'use strict';
 
-  var history = {};
+  var CREDITS_PER_USD = 20;
+  var VIEWS = [
+    { key: 'last30days', label: 'Last 30 days' },
+    { key: 'last24hours', label: 'Last 24 hours' }
+  ];
+
+  var data = { snapshots: {}, daily: {} };
+  var currentView = null;
   var barChart = null;
   var lineChart = null;
 
@@ -175,8 +196,7 @@
     series: css.getPropertyValue('--series').trim(),
     seriesSoft: css.getPropertyValue('--series-soft').trim(),
     grid: css.getPropertyValue('--grid').trim(),
-    muted: css.getPropertyValue('--muted').trim(),
-    ink2: css.getPropertyValue('--ink-2').trim()
+    muted: css.getPropertyValue('--muted').trim()
   };
 
   function $(id) { return document.getElementById(id); }
@@ -185,12 +205,29 @@
     return '$' + v.toFixed(v < 10 ? 3 : 2);
   }
 
+  function fmtCredits(usd) {
+    var c = usd * CREDITS_PER_USD;
+    return (c % 1 === 0 ? c.toFixed(0) : c.toFixed(1)) + ' credits';
+  }
+
+  function fmtDateTime(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleString(undefined, {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: 'numeric', minute: '2-digit'
+    });
+  }
+
   function localPart(email) {
     return String(email).split('@')[0];
   }
 
-  function windowSuffix(entry) {
-    return entry.window_days > 1 ? ' (last ' + entry.window_days + ' days)' : '';
+  function viewLabel(key) {
+    for (var i = 0; i < VIEWS.length; i++) {
+      if (VIEWS[i].key === key) return VIEWS[i].label;
+    }
+    return key;
   }
 
   function showError(msg) {
@@ -198,14 +235,6 @@
     el.textContent = msg;
     el.style.display = 'block';
     $('subtitle').textContent = 'Failed to load data.';
-  }
-
-  function sortedUsers(entry) {
-    return entry.users.slice().sort(function (a, b) { return b.cost - a.cost; });
-  }
-
-  function dayTotal(entry) {
-    return entry.users.reduce(function (s, u) { return s + u.cost; }, 0);
   }
 
   function baseScaleOpts() {
@@ -240,19 +269,22 @@
             callbacks: {
               label: function (ctx) {
                 var u = users[ctx.dataIndex];
-                return fmtCost(u.cost) + ' · ' + u.traces + ' traces';
+                return fmtCost(u.cost) + ' · ' + fmtCredits(u.cost) + ' · ' + u.traces + ' traces';
               }
             }
           }
         },
         scales: {
+          // no fixed min/max anywhere — axes re-fit whatever data is loaded
           x: Object.assign(baseScaleOpts(), {
+            beginAtZero: true,
+            grace: '5%',
             ticks: {
               color: COLORS.muted, font: { size: 11 },
               callback: function (v) { return '$' + Number(v).toFixed(2); }
             }
           }),
-          y: Object.assign(baseScaleOpts(), { grid: { display: false }, border: { color: COLORS.grid } })
+          y: Object.assign(baseScaleOpts(), { grid: { display: false } })
         }
       }
     });
@@ -260,13 +292,13 @@
 
   function renderLineChart() {
     if (lineChart) { lineChart.destroy(); lineChart = null; }
-    var dates = Object.keys(history).sort();
+    var dates = Object.keys(data.daily).sort();
     lineChart = new Chart($('lineCanvas'), {
       type: 'line',
       data: {
         labels: dates,
         datasets: [{
-          data: dates.map(function (d) { return dayTotal(history[d]); }),
+          data: dates.map(function (d) { return data.daily[d].cost; }),
           borderColor: COLORS.series,
           backgroundColor: COLORS.seriesSoft,
           fill: true,
@@ -285,8 +317,8 @@
           tooltip: {
             callbacks: {
               label: function (ctx) {
-                var entry = history[dates[ctx.dataIndex]];
-                return fmtCost(ctx.parsed.y) + windowSuffix(entry);
+                var day = data.daily[dates[ctx.dataIndex]];
+                return fmtCost(ctx.parsed.y) + ' · ' + day.traces + ' traces · ' + day.users + ' users';
               }
             }
           }
@@ -295,6 +327,7 @@
           x: baseScaleOpts(),
           y: Object.assign(baseScaleOpts(), {
             beginAtZero: true,
+            grace: '5%',
             ticks: {
               color: COLORS.muted, font: { size: 11 },
               callback: function (v) { return '$' + Number(v).toFixed(2); }
@@ -319,6 +352,11 @@
       tdCost.className = 'num';
       tdCost.textContent = fmtCost(u.cost);
       tr.appendChild(tdCost);
+
+      var tdCredits = document.createElement('td');
+      tdCredits.className = 'num';
+      tdCredits.textContent = fmtCredits(u.cost).replace(' credits', '');
+      tr.appendChild(tdCredits);
 
       var tdTraces = document.createElement('td');
       tdTraces.className = 'num';
@@ -358,7 +396,10 @@
         a.textContent = 'logs ↗';
         tdLogs.appendChild(a);
       } else {
-        tdLogs.innerHTML = '<span class="dash">—</span>';
+        var dash = document.createElement('span');
+        dash.className = 'dash';
+        dash.textContent = '—';
+        tdLogs.appendChild(dash);
       }
       tr.appendChild(tdLogs);
 
@@ -366,17 +407,29 @@
     });
   }
 
-  function renderDay(date) {
-    var entry = history[date];
-    var users = sortedUsers(entry);
-    var total = dayTotal(entry);
-    var traces = entry.users.reduce(function (s, u) { return s + u.traces; }, 0);
+  function renderView(key) {
+    currentView = key;
+    var snap = data.snapshots[key];
+
+    var buttons = document.querySelectorAll('.segmented button');
+    buttons.forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-view') === key);
+      b.setAttribute('aria-selected', b.getAttribute('data-view') === key ? 'true' : 'false');
+    });
+
+    $('subtitle').textContent = 'Last updated: ' + fmtDateTime(snap.updated_at) +
+      ' (' + viewLabel(key) + ')';
+
+    var users = snap.users.slice().sort(function (a, b) { return b.cost - a.cost; });
+    var total = users.reduce(function (s, u) { return s + u.cost; }, 0);
+    var traces = users.reduce(function (s, u) { return s + u.traces; }, 0);
 
     $('cardCost').textContent = fmtCost(total);
+    $('cardCredits').textContent = '≈ ' + fmtCredits(total);
     $('cardUsers').textContent = String(users.length);
     $('cardTraces').textContent = String(traces);
     $('cardAvg').textContent = traces > 0 ? fmtCost(total / traces) : '—';
-    $('barTitle').textContent = 'Cost per user — ' + date + windowSuffix(entry);
+    $('barTitle').textContent = 'Cost per user — ' + viewLabel(key);
 
     var hasUsers = users.length > 0;
     $('tableWrap').style.display = hasUsers ? '' : 'none';
@@ -387,29 +440,36 @@
     if (hasUsers) renderTable(users, total);
   }
 
-  function init(data) {
-    history = data;
-    var dates = Object.keys(history).sort().reverse();
-    if (dates.length === 0) {
+  function init(loaded) {
+    data.snapshots = loaded.snapshots || {};
+    data.daily = loaded.daily || {};
+
+    var available = VIEWS.filter(function (v) { return data.snapshots[v.key]; });
+    if (available.length === 0) {
       showError('history.json contains no snapshots yet. Run update.py to record one.');
       return;
     }
 
-    $('subtitle').textContent = 'Last updated ' + dates[0] + ' · ' + dates.length +
-      (dates.length === 1 ? ' day' : ' days') + ' of history';
-
-    var select = $('daySelect');
-    dates.forEach(function (d) {
-      var opt = document.createElement('option');
-      opt.value = d;
-      opt.textContent = d + windowSuffix(history[d]);
-      select.appendChild(opt);
+    var buttons = document.querySelectorAll('.segmented button');
+    buttons.forEach(function (b) {
+      var key = b.getAttribute('data-view');
+      if (!data.snapshots[key]) {
+        b.disabled = true;
+        b.title = 'No data yet';
+        return;
+      }
+      b.addEventListener('click', function () { renderView(key); });
     });
-    select.value = dates[0];
-    select.addEventListener('change', function () { renderDay(select.value); });
+
+    // default to the most recently updated snapshot; ties prefer the daily view
+    var initial = available.slice().sort(function (a, b) {
+      var cmp = String(data.snapshots[b.key].updated_at).localeCompare(String(data.snapshots[a.key].updated_at));
+      if (cmp !== 0) return cmp;
+      return (a.key === 'last24hours' ? -1 : 1);
+    })[0].key;
 
     $('app').style.display = '';
-    renderDay(dates[0]);
+    renderView(initial);
   }
 
   fetch('data/history.json?t=' + Date.now())

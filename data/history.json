@@ -1,43 +1,77 @@
 {
- "2026-07-09": {
-  "users": [
-   {
-    "cost": 11.011990699948,
-    "email": "sameer.a.b.kulkarni@accenture.com",
-    "traces": 13,
-    "url": null
-   },
-   {
-    "cost": 7.159660949962,
-    "email": "geethu.gs@accenture.com",
-    "traces": 26,
-    "url": null
-   },
-   {
-    "cost": 4.790697499989,
-    "email": "prince.t.jacob@accenture.com",
-    "traces": 6,
-    "url": null
-   },
-   {
-    "cost": 3.70360394998,
-    "email": "priyanka.bhadri@wavemaker.com",
-    "traces": 10,
-    "url": null
-   },
-   {
-    "cost": 1.212297299995,
-    "email": "dhanya.b.rao@accenture.com",
-    "traces": 6,
-    "url": null
-   },
-   {
-    "cost": 0.513041099995,
-    "email": "kaustab.das@accenture.com",
-    "traces": 2,
-    "url": null
-   }
-  ],
-  "window_days": 30
+ "daily": {
+  "2026-07-09": {
+   "cost": 3.064345949982,
+   "traces": 11,
+   "users": 3
+  }
+ },
+ "snapshots": {
+  "last24hours": {
+   "updated_at": "2026-07-09T11:56:35+05:30",
+   "users": [
+    {
+     "cost": 2.123540099985,
+     "email": "geethu.gs@accenture.com",
+     "traces": 9,
+     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
+    },
+    {
+     "cost": 0.573627749998,
+     "email": "dhanya.b.rao@accenture.com",
+     "traces": 1,
+     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+    },
+    {
+     "cost": 0.367178099999,
+     "email": "sameer.a.b.kulkarni@accenture.com",
+     "traces": 1,
+     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_sameer.a.b.kulkarni@accenture.com"
+    }
+   ],
+   "window_days": 1
+  },
+  "last30days": {
+   "updated_at": "2026-07-09T11:56:35+05:30",
+   "users": [
+    {
+     "cost": 11.011990699948,
+     "email": "sameer.a.b.kulkarni@accenture.com",
+     "traces": 13,
+     "url": null
+    },
+    {
+     "cost": 7.159660949962,
+     "email": "geethu.gs@accenture.com",
+     "traces": 26,
+     "url": null
+    },
+    {
+     "cost": 4.790697499989,
+     "email": "prince.t.jacob@accenture.com",
+     "traces": 6,
+     "url": null
+    },
+    {
+     "cost": 3.70360394998,
+     "email": "priyanka.bhadri@wavemaker.com",
+     "traces": 10,
+     "url": null
+    },
+    {
+     "cost": 1.212297299995,
+     "email": "dhanya.b.rao@accenture.com",
+     "traces": 6,
+     "url": null
+    },
+    {
+     "cost": 0.513041099995,
+     "email": "kaustab.das@accenture.com",
+     "traces": 2,
+     "url": null
+    }
+   ],
+   "window_days": 30
+  }
  }
 }

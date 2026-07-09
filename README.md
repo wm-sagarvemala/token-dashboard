@@ -19,7 +19,11 @@ GitHub Pages serves static files: index.html + data/history.json ◄────
                         Team opens URL, selects any day, views charts/table
 ```
 
-- `data/history.json` **is** the database: a JSON object keyed by ISO date.
+- `data/history.json` **is** the database: two named snapshots (`last24hours`,
+  `last30days`, each with an `updated_at` timestamp) plus a `daily` map of
+  per-day totals that feeds the trend chart. The dashboard shows a
+  Last 30 days / Last 24 hours toggle and defaults to the freshest snapshot.
+- Costs are also shown as platform credits (1 USD = 20 credits).
 - No server, no build step, no framework — plain HTML/CSS/JS + Chart.js from CDN.
 - No auth on the dashboard itself; repo/Pages visibility controls access.
 
@@ -65,31 +69,32 @@ these steps.
 
 ```sh
 cd token-dashboard
+# Option A: import the JSON you downloaded from the analytics site
+python3 update.py --file ~/Downloads/Last24Hours.json --push
+
+# Option B: fetch directly from the API
 export ANALYTICS_COOKIE='<cookie>'    # only when the previous one expired
 python3 update.py --push
 ```
 
-That fetches the last 1 day for `acn-onboarding`, saves it under today's date in
-`data/history.json`, commits `snapshot <date>`, and pushes. Pages redeploys
-automatically within a minute or two.
+Either way this refreshes the **Last 24 hours** snapshot (with an updated
+timestamp), records today's totals in the trend, commits, and pushes. Pages
+redeploys automatically within a minute or two.
 
-## Backfill / fix a day
+To refresh the **Last 30 days** snapshot, add `--window 30` (with `--file` it
+just marks the import as 30-day data; without it, it fetches `days=30`):
 
 ```sh
-# Re-fetch and overwrite a specific date (idempotent — re-running replaces, never duplicates)
-python3 update.py --date 2026-07-08 --push
-
-# Import a manually downloaded API response instead of calling the API
-python3 update.py --file response.json --date 2026-07-08 --push
-
-# Record a different window size (also sets the API days= param)
-python3 update.py --window 30 --date 2026-07-09
+python3 update.py --window 30 --push
+python3 update.py --file Last30Days.json --window 30 --push
 ```
 
-Entries recorded with `--window` > 1 show a "(last N days)" suffix in the
-dashboard's day dropdown, so multi-day aggregates aren't mistaken for a single
-day. (The seeded 2026-07-09 entry is a 30-day aggregate from a manual browser
-export; it has no per-user log links because the export didn't include them.)
+## Backfill / fix a day in the trend
+
+```sh
+# Overwrite a specific trend date (idempotent — re-running replaces, never duplicates)
+python3 update.py --file older-export.json --date 2026-07-08 --push
+```
 
 ## Local preview
 

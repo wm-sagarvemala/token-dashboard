@@ -24,7 +24,7 @@ jobs:
             const history = JSON.parse(fs.readFileSync('data/history.json', 'utf8'));
             const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000)
               .toISOString().slice(0, 10);
-            if (history[yesterday]) {
+            if ((history.daily || {})[yesterday]) {
               core.info(`Snapshot for ${yesterday} exists — nothing to do.`);
               return;
             }

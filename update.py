@@ -2,14 +2,16 @@
 """Daily token/cost snapshot for the acn-onboarding dashboard.
 
 Fetches the analytics API (or imports a downloaded JSON file), transforms it
-into a per-day snapshot, and appends/overwrites it in data/history.json.
+into a named snapshot ("last24hours" or "last30days"), and saves it in
+data/history.json. Daily (window=1) snapshots also append a per-day total
+used by the dashboard's trend chart.
 
 Usage:
-  python3 update.py                      # fetch API (days=1) using $ANALYTICS_COOKIE
-  python3 update.py --file x.json        # import a manually downloaded JSON
-  python3 update.py --date 2026-07-08    # override snapshot date (backfill/fix)
-  python3 update.py --window 30          # override window_days (also API days param)
-  python3 update.py --push               # git add + commit + push after saving
+  python3 update.py                          # fetch API (days=1) -> "last24hours" slot
+  python3 update.py --file Last24Hours.json  # import a downloaded JSON instead
+  python3 update.py --window 30              # -> "last30days" slot (API days=30)
+  python3 update.py --date 2026-07-08        # override the trend date (backfill/fix)
+  python3 update.py --push                   # git add + commit + push after saving
 
 The cookie is read from the ANALYTICS_COOKIE environment variable and is
 never written to disk.
@@ -43,7 +45,7 @@ COOKIE_HELP = (
     "       export ANALYTICS_COOKIE='<paste cookie here>'\n"
     "       python3 update.py --push\n"
     "  2. Or download the JSON response manually and import it:\n"
-    "       python3 update.py --file response.json --push"
+    "       python3 update.py --file Last24Hours.json --push"
 )
 
 
@@ -98,8 +100,12 @@ def transform(payload: dict) -> list:
 def load_history() -> dict:
     if HISTORY_PATH.exists():
         with open(HISTORY_PATH, encoding="utf-8") as f:
-            return json.load(f)
-    return {}
+            history = json.load(f)
+    else:
+        history = {}
+    history.setdefault("snapshots", {})
+    history.setdefault("daily", {})
+    return history
 
 
 def save_history(history: dict) -> None:
@@ -109,10 +115,10 @@ def save_history(history: dict) -> None:
         f.write("\n")
 
 
-def git_push(date: str) -> None:
+def git_push(slot: str, date: str) -> None:
     for cmd in (
         ["git", "add", "data/history.json"],
-        ["git", "commit", "-m", f"snapshot {date}"],
+        ["git", "commit", "-m", f"snapshot {slot} {date}"],
         ["git", "push"],
     ):
         result = subprocess.run(cmd, cwd=ROOT)
@@ -121,11 +127,12 @@ def git_push(date: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Save a daily usage snapshot to data/history.json")
+    parser = argparse.ArgumentParser(description="Save a usage snapshot to data/history.json")
     parser.add_argument("--file", help="import a downloaded API JSON file instead of calling the API")
-    parser.add_argument("--date", help="snapshot date YYYY-MM-DD (default: today)")
+    parser.add_argument("--date", help="trend date YYYY-MM-DD for daily snapshots (default: today)")
     parser.add_argument("--window", type=int, default=1,
-                        help="window_days to record; in API mode also the days= param (default: 1)")
+                        help="window in days: 1 -> 'last24hours' slot, >1 -> 'last30days' slot "
+                             "(also the API days= param; default: 1)")
     parser.add_argument("--push", action="store_true",
                         help="git add/commit/push data/history.json after saving")
     args = parser.parse_args()
@@ -147,15 +154,29 @@ def main() -> None:
         payload = fetch_api(cookie, args.window)
 
     users = transform(payload)
+    slot = "last24hours" if args.window <= 1 else "last30days"
+    updated_at = datetime.datetime.now().astimezone().isoformat(timespec="seconds")
+
     history = load_history()
-    history[date] = {"window_days": args.window, "users": users}
+    history["snapshots"][slot] = {
+        "updated_at": updated_at,
+        "window_days": args.window,
+        "users": users,
+    }
+    if slot == "last24hours":
+        history["daily"][date] = {
+            "cost": sum(u["cost"] for u in users),
+            "traces": sum(u["traces"] for u in users),
+            "users": len(users),
+        }
     save_history(history)
 
     total = sum(u["cost"] for u in users)
-    print(f"{date}: {len(users)} users, ${total:.2f} total — {len(history)} day(s) in history.json")
+    print(f"{slot} @ {updated_at}: {len(users)} users, ${total:.2f} total "
+          f"— {len(history['daily'])} day(s) in trend")
 
     if args.push:
-        git_push(date)
+        git_push(slot, date)
 
 
 if __name__ == "__main__":
