@@ -16,14 +16,14 @@
       "users": 2
     },
     "2026-07-14": {
-      "cost": 22.825548049924,
-      "traces": 38,
+      "cost": 29.545479999914,
+      "traces": 40,
       "users": 3
     }
   },
   "snapshots": {
     "last24hours": {
-      "updated_at": "2026-07-14T16:33:17+05:30",
+      "updated_at": "2026-07-14T17:03:36+05:30",
       "users": [
         {
           "cost": 17.947373099941,
@@ -32,9 +32,9 @@
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
         },
         {
-          "cost": 4.602690499984,
+          "cost": 11.322622449974,
           "email": "dhanya.b.rao@accenture.com",
-          "traces": 8,
+          "traces": 10,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
         },
         {
@@ -47,7 +47,7 @@
       "window_days": 1
     },
     "last30days": {
-      "updated_at": "2026-07-14T16:33:17+05:30",
+      "updated_at": "2026-07-14T17:03:36+05:30",
       "users": [
         {
           "cost": 28.216707899911,
@@ -56,16 +56,16 @@
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
         },
         {
+          "cost": 20.365164249938,
+          "email": "dhanya.b.rao@accenture.com",
+          "traces": 48,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+        },
+        {
           "cost": 15.968519249936,
           "email": "geethu.gs@accenture.com",
           "traces": 32,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
-        },
-        {
-          "cost": 13.438462249948,
-          "email": "dhanya.b.rao@accenture.com",
-          "traces": 45,
-          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
         },
         {
           "cost": 12.075069949943,
