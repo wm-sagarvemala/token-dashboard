@@ -1,86 +1,86 @@
 {
- "daily": {
-  "2026-07-09": {
-   "cost": 3.064345949982,
-   "traces": 11,
-   "users": 3
-  },
-  "2026-07-10": {
-   "cost": 4.3807055999780005,
-   "traces": 10,
-   "users": 4
-  },
-  "2026-07-13": {
-   "cost": 0.22760475000000002,
-   "traces": 3,
-   "users": 2
-  },
-  "2026-07-14": {
-   "cost": 6.137483649979,
-   "traces": 12,
-   "users": 2
-  }
- },
- "snapshots": {
-  "last24hours": {
-   "updated_at": "2026-07-14T10:48:51+05:30",
-   "users": [
-    {
-     "cost": 5.208723099983,
-     "email": "prince.t.jacob@accenture.com",
-     "traces": 6,
-     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
+  "daily": {
+    "2026-07-09": {
+      "cost": 3.064345949982,
+      "traces": 11,
+      "users": 3
     },
-    {
-     "cost": 0.928760549996,
-     "email": "dhanya.b.rao@accenture.com",
-     "traces": 6,
-     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+    "2026-07-10": {
+      "cost": 4.3807055999780005,
+      "traces": 10,
+      "users": 4
+    },
+    "2026-07-13": {
+      "cost": 0.22760475000000002,
+      "traces": 3,
+      "users": 2
+    },
+    "2026-07-14": {
+      "cost": 8.797647899946,
+      "traces": 32,
+      "users": 2
     }
-   ],
-   "window_days": 1
   },
-  "last30days": {
-   "updated_at": "2026-07-14T10:48:51+05:30",
-   "users": [
-    {
-     "cost": 15.968519249936,
-     "email": "geethu.gs@accenture.com",
-     "traces": 32,
-     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
+  "snapshots": {
+    "last24hours": {
+      "updated_at": "2026-07-14T13:49:51+05:30",
+      "users": [
+        {
+          "cost": 7.352953199956,
+          "email": "prince.t.jacob@accenture.com",
+          "traces": 23,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
+        },
+        {
+          "cost": 1.44469469999,
+          "email": "dhanya.b.rao@accenture.com",
+          "traces": 9,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+        }
+      ],
+      "window_days": 1
     },
-    {
-     "cost": 11.799585499944,
-     "email": "sameer.a.b.kulkarni@accenture.com",
-     "traces": 17,
-     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_sameer.a.b.kulkarni@accenture.com"
-    },
-    {
-     "cost": 10.26933479997,
-     "email": "prince.t.jacob@accenture.com",
-     "traces": 13,
-     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
-    },
-    {
-     "cost": 9.042541799964,
-     "email": "dhanya.b.rao@accenture.com",
-     "traces": 38,
-     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
-    },
-    {
-     "cost": 3.70360394998,
-     "email": "priyanka.bhadri@wavemaker.com",
-     "traces": 10,
-     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_priyanka.bhadri@wavemaker.com"
-    },
-    {
-     "cost": 0.709869749995,
-     "email": "kaustab.das@accenture.com",
-     "traces": 3,
-     "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
+    "last30days": {
+      "updated_at": "2026-07-14T13:49:51+05:30",
+      "users": [
+        {
+          "cost": 17.622287999926,
+          "email": "prince.t.jacob@accenture.com",
+          "traces": 36,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
+        },
+        {
+          "cost": 15.968519249936,
+          "email": "geethu.gs@accenture.com",
+          "traces": 32,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
+        },
+        {
+          "cost": 11.799585499944,
+          "email": "sameer.a.b.kulkarni@accenture.com",
+          "traces": 17,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_sameer.a.b.kulkarni@accenture.com"
+        },
+        {
+          "cost": 9.778692449958,
+          "email": "dhanya.b.rao@accenture.com",
+          "traces": 43,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+        },
+        {
+          "cost": 3.70360394998,
+          "email": "priyanka.bhadri@wavemaker.com",
+          "traces": 10,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_priyanka.bhadri@wavemaker.com"
+        },
+        {
+          "cost": 0.709869749995,
+          "email": "kaustab.das@accenture.com",
+          "traces": 3,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
+        }
+      ],
+      "window_days": 30
     }
-   ],
-   "window_days": 30
   }
- }
 }
