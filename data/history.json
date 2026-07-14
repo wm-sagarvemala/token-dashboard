@@ -16,19 +16,19 @@
       "users": 2
     },
     "2026-07-14": {
-      "cost": 8.797647899946,
-      "traces": 32,
+      "cost": 9.687510899944,
+      "traces": 35,
       "users": 2
     }
   },
   "snapshots": {
     "last24hours": {
-      "updated_at": "2026-07-14T13:49:51+05:30",
+      "updated_at": "2026-07-14T14:15:11+05:30",
       "users": [
         {
-          "cost": 7.352953199956,
+          "cost": 8.242816199954,
           "email": "prince.t.jacob@accenture.com",
-          "traces": 23,
+          "traces": 26,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
         },
         {
@@ -41,12 +41,12 @@
       "window_days": 1
     },
     "last30days": {
-      "updated_at": "2026-07-14T13:49:51+05:30",
+      "updated_at": "2026-07-14T14:15:11+05:30",
       "users": [
         {
-          "cost": 17.622287999926,
+          "cost": 18.512150999924,
           "email": "prince.t.jacob@accenture.com",
-          "traces": 36,
+          "traces": 39,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
         },
         {
