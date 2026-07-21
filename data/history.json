@@ -41,73 +41,79 @@
       "users": 2
     },
     "2026-07-21": {
-      "cost": 62.832062349699996,
-      "traces": 112,
-      "users": 4
+      "cost": 51.250344499752,
+      "traces": 95,
+      "users": 5
     }
   },
   "snapshots": {
     "last24hours": {
-      "updated_at": "2026-07-21T10:36:33+05:30",
+      "updated_at": "2026-07-21T20:07:05+05:30",
       "users": [
         {
-          "cost": 24.628880549909,
+          "cost": 17.936788549909,
           "email": "sameer.a.b.kulkarni@accenture.com",
-          "traces": 37,
+          "traces": 30,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_sameer.a.b.kulkarni@accenture.com"
         },
         {
-          "cost": 15.811809249932,
-          "email": "dhanya.b.rao@accenture.com",
-          "traces": 16,
-          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
-        },
-        {
-          "cost": 12.834144149932,
+          "cost": 12.007318499942,
           "email": "geethu.gs@accenture.com",
-          "traces": 31,
+          "traces": 28,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
         },
         {
-          "cost": 9.557228399927,
+          "cost": 11.365094699947,
+          "email": "dhanya.b.rao@accenture.com",
+          "traces": 15,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+        },
+        {
+          "cost": 5.969821949981,
+          "email": "kaustab.das@accenture.com",
+          "traces": 12,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
+        },
+        {
+          "cost": 3.971320799973,
           "email": "prince.t.jacob@accenture.com",
-          "traces": 28,
+          "traces": 10,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
         }
       ],
       "window_days": 1
     },
     "last30days": {
-      "updated_at": "2026-07-21T10:36:33+05:30",
+      "updated_at": "2026-07-21T20:07:05+05:30",
       "users": [
         {
-          "cost": 87.977728299712,
+          "cost": 93.947550249693,
           "email": "kaustab.das@accenture.com",
-          "traces": 82,
+          "traces": 94,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
         },
         {
-          "cost": 85.023824249656,
+          "cost": 89.961844499622,
           "email": "geethu.gs@accenture.com",
-          "traces": 155,
+          "traces": 168,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
         },
         {
-          "cost": 59.508978949753,
-          "email": "dhanya.b.rao@accenture.com",
-          "traces": 117,
-          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
-        },
-        {
-          "cost": 55.031936299771,
+          "cost": 72.96872484968,
           "email": "sameer.a.b.kulkarni@accenture.com",
-          "traces": 78,
+          "traces": 108,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_sameer.a.b.kulkarni@accenture.com"
         },
         {
-          "cost": 39.507958649828,
+          "cost": 70.8740736497,
+          "email": "dhanya.b.rao@accenture.com",
+          "traces": 132,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+        },
+        {
+          "cost": 43.479279449801,
           "email": "prince.t.jacob@accenture.com",
-          "traces": 73,
+          "traces": 83,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
         },
         {
