@@ -81,37 +81,37 @@
       "users": 2
     },
     "2026-07-31": {
-      "cost": 35.13486484989,
-      "traces": 26,
+      "cost": 34.080034099891996,
+      "traces": 25,
       "users": 2
     }
   },
   "snapshots": {
     "last24hours": {
-      "updated_at": "2026-07-31T10:56:47+05:30",
+      "updated_at": "2026-07-31T14:53:09+05:30",
       "users": [
         {
-          "cost": 29.87451499993,
+          "cost": 26.217710599944,
           "email": "kaustab.das@accenture.com",
-          "traces": 13,
+          "traces": 11,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
         },
         {
-          "cost": 5.26034984996,
+          "cost": 7.862323499948,
           "email": "dhanya.b.rao@accenture.com",
-          "traces": 13,
+          "traces": 14,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
         }
       ],
       "window_days": 1
     },
     "last30days": {
-      "updated_at": "2026-07-31T10:56:47+05:30",
+      "updated_at": "2026-07-31T14:53:09+05:30",
       "users": [
         {
-          "cost": 146.412514049504,
+          "cost": 156.591056349476,
           "email": "kaustab.das@accenture.com",
-          "traces": 140,
+          "traces": 146,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
         },
         {
@@ -121,9 +121,9 @@
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
         },
         {
-          "cost": 106.078667499587,
+          "cost": 111.356112699555,
           "email": "dhanya.b.rao@accenture.com",
-          "traces": 173,
+          "traces": 180,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
         },
         {
