@@ -89,28 +89,39 @@
       "cost": 7.134373049977,
       "traces": 8,
       "users": 1
+    },
+    "2026-08-04": {
+      "cost": 20.904218699886002,
+      "traces": 56,
+      "users": 2
     }
   },
   "snapshots": {
     "last24hours": {
-      "updated_at": "2026-08-03T10:27:04+05:30",
+      "updated_at": "2026-08-04T10:55:28+05:30",
       "users": [
         {
-          "cost": 7.134373049977,
+          "cost": 12.499235099952,
           "email": "kaustab.das@accenture.com",
-          "traces": 8,
+          "traces": 30,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
+        },
+        {
+          "cost": 8.404983599934,
+          "email": "dhanya.b.rao@accenture.com",
+          "traces": 26,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
         }
       ],
       "window_days": 1
     },
     "last30days": {
-      "updated_at": "2026-08-03T10:27:04+05:30",
+      "updated_at": "2026-08-04T10:55:28+05:30",
       "users": [
         {
-          "cost": 179.549589899396,
+          "cost": 192.048824999348,
           "email": "kaustab.das@accenture.com",
-          "traces": 169,
+          "traces": 199,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
         },
         {
@@ -120,9 +131,9 @@
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
         },
         {
-          "cost": 114.455216949543,
+          "cost": 122.860200549477,
           "email": "dhanya.b.rao@accenture.com",
-          "traces": 184,
+          "traces": 210,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
         },
         {
