@@ -99,76 +99,75 @@
       "cost": 23.99168764988,
       "traces": 48,
       "users": 3
+    },
+    "2026-08-11": {
+      "cost": 19.337196749885,
+      "traces": 51,
+      "users": 2
     }
   },
   "snapshots": {
     "last24hours": {
-      "updated_at": "2026-08-05T10:48:36+05:30",
+      "updated_at": "2026-08-11T14:37:57+05:30",
       "users": [
         {
-          "cost": 13.121656349933,
-          "email": "kaustab.das@accenture.com",
-          "traces": 26,
-          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
-        },
-        {
-          "cost": 10.853995249947,
+          "cost": 15.901376399912,
           "email": "dhanya.b.rao@accenture.com",
-          "traces": 21,
+          "traces": 40,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
         },
         {
-          "cost": 0.01603605,
-          "email": "abhitej.konkimalla@wavemaker.com",
-          "traces": 1,
-          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_abhitej.konkimalla@wavemaker.com"
+          "cost": 3.435820349973,
+          "email": "kaustab.das@accenture.com",
+          "traces": 11,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
         }
       ],
       "window_days": 1
     },
     "last30days": {
-      "updated_at": "2026-08-05T10:48:36+05:30",
+      "updated_at": "2026-08-11T14:37:57+05:30",
       "users": [
         {
-          "cost": 204.555669749285,
+          "cost": 237.035295699094,
           "email": "kaustab.das@accenture.com",
-          "traces": 222,
+          "traces": 297,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
         },
         {
-          "cost": 133.714195799424,
+          "cost": 142.274357399365,
           "email": "dhanya.b.rao@accenture.com",
-          "traces": 231,
+          "traces": 243,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
         },
         {
-          "cost": 126.038545749399,
+          "cost": 110.826279099459,
           "email": "geethu.gs@accenture.com",
-          "traces": 263,
+          "traces": 237,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
         },
         {
-          "cost": 89.565896149543,
+          "cost": 77.766310649599,
           "email": "sameer.a.b.kulkarni@accenture.com",
-          "traces": 159,
+          "traces": 142,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_sameer.a.b.kulkarni@accenture.com"
         },
         {
-          "cost": 63.480383049659,
+          "cost": 60.071981499672,
           "email": "prince.t.jacob@accenture.com",
-          "traces": 132,
+          "traces": 126,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
         },
         {
-          "cost": 53.434723599869,
+          "cost": 52.418306949871,
           "email": "priyanka.bhadri@wavemaker.com",
-          "traces": 56,
+          "traces": 54,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_priyanka.bhadri@wavemaker.com"
         },
         {
-          "cost": 0.01603605,
+          "cost": 0.106539149999,
           "email": "abhitej.konkimalla@wavemaker.com",
-          "traces": 1,
+          "traces": 4,
           "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_abhitej.konkimalla@wavemaker.com"
         }
       ],
