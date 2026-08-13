@@ -104,6 +104,181 @@
       "cost": 19.337196749885,
       "traces": 51,
       "users": 2
+    },
+    "2026-08-13": {
+      "cost": 0.402456599999,
+      "traces": 3,
+      "users": 1
+    }
+  },
+  "snapshots": {
+    "last24hours": {
+      "updated_at": "2026-08-13T10:03:59+05:30",
+      "users": [
+        {
+          "cost": 0.402456599999,
+          "email": "dhanya.b.rao@accenture.com",
+          "traces": 3,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+        }
+      ],
+      "window_days": 1
+    },
+    "last30days": {
+      "updated_at": "2026-08-13T10:03:59+05:30",
+      "users": [
+        {
+          "cost": 241.084716699064,
+          "email": "kaustab.das@accenture.com",
+          "traces": 311,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_kaustab.das@accenture.com"
+        },
+        {
+          "cost": 159.82731019932,
+          "email": "dhanya.b.rao@accenture.com",
+          "traces": 269,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_dhanya.b.rao@accenture.com"
+        },
+        {
+          "cost": 110.826279099459,
+          "email": "geethu.gs@accenture.com",
+          "traces": 237,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_geethu.gs@accenture.com"
+        },
+        {
+          "cost": 77.766310649599,
+          "email": "sameer.a.b.kulkarni@accenture.com",
+          "traces": 142,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_sameer.a.b.kulkarni@accenture.com"
+        },
+        {
+          "cost": 54.863258399689,
+          "email": "prince.t.jacob@accenture.com",
+          "traces": 120,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_prince.t.jacob@accenture.com"
+        },
+        {
+          "cost": 52.418306949871,
+          "email": "priyanka.bhadri@wavemaker.com",
+          "traces": 54,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_priyanka.bhadri@wavemaker.com"
+        },
+        {
+          "cost": 0.106539149999,
+          "email": "abhitej.konkimalla@wavemaker.com",
+          "traces": 4,
+          "url": "https://ai-logs.wavemakeronline.com/project/d9a447c5-c224-48c4-9370-f3fc0bae3466/users/prod-ai_acn-onboarding_abhitej.konkimalla@wavemaker.com"
+        }
+      ],
+      "window_days": 30
+    }
+  }
+}{
+  "daily": {
+    "2026-07-09": {
+      "cost": 3.064345949982,
+      "traces": 11,
+      "users": 3
+    },
+    "2026-07-10": {
+      "cost": 4.3807055999780005,
+      "traces": 10,
+      "users": 4
+    },
+    "2026-07-13": {
+      "cost": 0.22760475000000002,
+      "traces": 3,
+      "users": 2
+    },
+    "2026-07-14": {
+      "cost": 29.983287849912998,
+      "traces": 41,
+      "users": 3
+    },
+    "2026-07-15": {
+      "cost": 12.194030249923001,
+      "traces": 37,
+      "users": 5
+    },
+    "2026-07-16": {
+      "cost": 12.219764049932,
+      "traces": 36,
+      "users": 3
+    },
+    "2026-07-17": {
+      "cost": 69.91950699977801,
+      "traces": 75,
+      "users": 4
+    },
+    "2026-07-20": {
+      "cost": 25.309307999902,
+      "traces": 32,
+      "users": 2
+    },
+    "2026-07-21": {
+      "cost": 51.250344499752,
+      "traces": 95,
+      "users": 5
+    },
+    "2026-07-22": {
+      "cost": 55.04875309971501,
+      "traces": 105,
+      "users": 5
+    },
+    "2026-07-23": {
+      "cost": 43.870977449753,
+      "traces": 85,
+      "users": 6
+    },
+    "2026-07-24": {
+      "cost": 45.639014349753,
+      "traces": 99,
+      "users": 6
+    },
+    "2026-07-27": {
+      "cost": 0,
+      "traces": 0,
+      "users": 0
+    },
+    "2026-07-28": {
+      "cost": 25.20043239993,
+      "traces": 26,
+      "users": 3
+    },
+    "2026-07-29": {
+      "cost": 29.434445349926,
+      "traces": 36,
+      "users": 3
+    },
+    "2026-07-30": {
+      "cost": 20.117453849929,
+      "traces": 22,
+      "users": 2
+    },
+    "2026-07-31": {
+      "cost": 34.080034099891996,
+      "traces": 25,
+      "users": 2
+    },
+    "2026-08-03": {
+      "cost": 7.134373049977,
+      "traces": 8,
+      "users": 1
+    },
+    "2026-08-04": {
+      "cost": 20.904218699886002,
+      "traces": 56,
+      "users": 2
+    },
+    "2026-08-05": {
+      "cost": 23.99168764988,
+      "traces": 48,
+      "users": 3
+    },
+    "2026-08-11": {
+      "cost": 19.337196749885,
+      "traces": 51,
+      "users": 2
     }
   },
   "snapshots": {
